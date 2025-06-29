@@ -14,11 +14,17 @@ import {
   renderToStream,
   type RenderToStreamOptions,
 } from "@builder.io/qwik/server";
+import { extractBase, setSsrLocaleGetter } from 'compiled-i18n/qwik'
 import Root from "./root";
+
+// +++ Allow compiled-i18n to get the current SSR locale
+setSsrLocaleGetter()
 
 export default function (opts: RenderToStreamOptions) {
   return renderToStream(<Root />, {
     ...opts,
+    // +++ Configure the base path for assets
+		base: extractBase,
     // Use container attributes to set attributes on the html tag.
     containerAttributes: {
       lang: "en-us",

@@ -3,6 +3,7 @@ import { Link } from "@builder.io/qwik-city";
 import { LuMenu, LuX } from '@qwikest/icons/lucide';
 import { Button } from "~/components/ui";
 import { cn } from "@qwik-ui/utils";
+import { _ } from "compiled-i18n";
 
 export const Header = component$(() => {
     const isOpen = useSignal(false);
@@ -36,35 +37,35 @@ export const Header = component$(() => {
     return (
         <header
             class={cn(
-                "fixed top-0 left-0 right-0 z-[100] transition-all duration-300",
+                "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
                 isScrolled.value || !hasOverlay.value
-                    ? "bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/95 border-b"
+                    ? "bg-white/90 backdrop-blur border-b"
                     : "bg-transparent",
             )}
         >
-            <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex h-16 items-center justify-between">
                     <Link href="/" class="flex items-center space-x-2">
-                        <span class="text-xl font-bold transition-colors text-foreground dark:text-white">FIT APP</span>
+                        <span class="text-xl font-bold transition-colors text-gray-900 dark:text-white">FIT APP</span>
                     </Link>
 
                     {/* Desktop navigation */}
-                    <nav class="hidden md:flex items-center space-x-6 text-foreground dark:text-white">
-                        <Link href="/programas" class="text-text-main hover:text-primary-purple transition-colors">
-                            Programs
+                    <nav class="hidden md:flex items-center space-x-6 text-gray-900 dark:text-white">
+                        <Link href="/programs" class="text-gray-700 hover:text-purple-600 transition-colors">
+                            {_`Programs`}
                         </Link>
-                        <Link href="/about" class="text-text-main hover:text-primary-purple transition-colors">
-                            About
+                        <Link href="/about" class="text-gray-700 hover:text-purple-600 transition-colors">
+                            {_`About`}
                         </Link>
-                        <Link href="/contacto" class="text-text-main hover:text-primary-purple transition-colors">
-                            Contact
+                        <Link href="/contact" class="text-gray-700 hover:text-purple-600 transition-colors">
+                            {_`Contact`}
                         </Link>
-                        <Button>Comenzar Entrenamiento</Button>
+                        <Button>{_`Start Training`}</Button>
                     </nav>
 
                     {/* Mobile menu button */}
                     <button
-                        class="md:hidden transition-colors text-foreground dark:text-white"
+                        class="md:hidden transition-colors text-gray-900 dark:text-white"
                         onClick$={() => isOpen.value = !isOpen.value}
                     >
                         {isOpen.value ? <LuX /> : <LuMenu />}
@@ -75,31 +76,33 @@ export const Header = component$(() => {
             {/* Mobile navigation */}
             {isOpen.value && (
                 <div
-                    class="absolute top-16 left-0 right-0 bg-background border-b md:hidden"
+                    class="absolute top-16 left-0 right-0 bg-white border-b md:hidden"
                 >
                     <nav class="container py-4 px-4 flex flex-col space-y-4">
                         <Link
-                            href="/programas"
-                            class="text-sm font-medium transition-colors hover:text-primary"
+                            href="/programs"
+                            class="text-sm font-medium transition-colors hover:text-purple-600"
                             onClick$={() => isOpen.value = false}
                         >
-                            Programas
+                            {_`Programs`}
                         </Link>
                         <Link
-                            href="/blog"
-                            class="text-sm font-medium transition-colors hover:text-primary"
+                            href="/about"
+                            class="text-sm font-medium transition-colors hover:text-purple-600"
                             onClick$={() => isOpen.value = false}
                         >
-                            Blog
+                            {_`About`}
                         </Link>
                         <Link
-                            href="/contacto"
-                            class="text-sm font-medium transition-colors hover:text-primary"
+                            href="/contact"
+                            class="text-sm font-medium transition-colors hover:text-purple-600"
                             onClick$={() => isOpen.value = false}
                         >
-                            Contacto
+                            {_`Contact`}
                         </Link>
-                        <Button onClick$={() => isOpen.value = false}>Comenzar Entrenamiento</Button>
+                        <Button onClick$={() => isOpen.value = false}>
+                            {_`Start Training`}
+                        </Button>
                     </nav>
                 </div>
             )}
